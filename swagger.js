@@ -79,12 +79,7 @@ const doc = {
 };
 
 const outputFile = './swagger_output.json';
-const endpointsFiles = [
-  './backend/routes/orderRoutes.js',
-  './backend/routes/uploadRoutes.js',
-  './backend/routes/userRoutes.js',
-  './backend/routes/productRoutes.js',
-];
+const endpointsFiles = ['./backend/server.js'];
 
 swaggerAutogen()(outputFile, endpointsFiles, doc).then(async () => {
   await import('./backend/server.js'); // Your project's root file
