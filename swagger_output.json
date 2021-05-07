@@ -1,0 +1,346 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Proshop API",
+    "description": "Proshop API documentation by <b>swagger-autogen</b>."
+  },
+  "host": "localhost:5000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Users",
+      "description": "Endpoints"
+    },
+    {
+      "name": "Orders",
+      "description": "EndPoints"
+    },
+    {
+      "name": "Products",
+      "description": "EndPoints"
+    },
+    {
+      "name": "Uploads",
+      "description": "EndPoints"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "post": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/myorders": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/{id}": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "put": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "delete": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/{id}/pay": {
+      "put": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/{id}/deliver": {
+      "put": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/profile": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "put": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/{id}/reviews": {
+      "post": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/top": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    }
+  },
+  "definitions": {
+    "Order": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "type": "string",
+          "example": ""
+        },
+        "orderItems": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": ""
+            },
+            "qty": {
+              "type": "number",
+              "example": 5
+            },
+            "image": {
+              "type": "string",
+              "example": "/uploads/Screen Shot 2020-09-29 at 5.50.52 PM.png"
+            },
+            "price": {
+              "type": "number",
+              "example": 1500
+            },
+            "product": {
+              "type": "string",
+              "example": ""
+            }
+          },
+          "required": [
+            "name",
+            "qty",
+            "image",
+            "price",
+            "product"
+          ]
+        },
+        "shippingAddress": {
+          "type": "object",
+          "properties": {
+            "address": {
+              "type": "string",
+              "example": "sdg"
+            },
+            "city": {
+              "type": "string",
+              "example": "tunis"
+            },
+            "postalCode": {
+              "type": "string",
+              "example": "1002"
+            },
+            "country": {
+              "type": "string",
+              "example": "Tunisia"
+            }
+          },
+          "required": [
+            "address",
+            "city",
+            "postalCode",
+            "country"
+          ]
+        },
+        "paymentResult": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": ""
+            },
+            "status": {
+              "type": "string",
+              "example": ""
+            },
+            "email_address": {
+              "type": "string",
+              "example": ""
+            },
+            "update_time": {
+              "type": "string",
+              "example": ""
+            }
+          }
+        },
+        "taxPrice": {
+          "type": "number",
+          "example": 100
+        },
+        "shippingPrice": {
+          "type": "number",
+          "example": 100
+        },
+        "totalPrice": {
+          "type": "number",
+          "example": 1220
+        },
+        "isPaid": {
+          "type": "boolean",
+          "example": false
+        },
+        "paidAt": {
+          "type": "string",
+          "example": ""
+        },
+        "isDelivered": {
+          "type": "boolean",
+          "example": false
+        },
+        "deliveredAt": {
+          "type": "string",
+          "example": ""
+        },
+        "paymentMethod": {
+          "type": "string",
+          "example": "paypal"
+        }
+      },
+      "required": [
+        "taxPrice",
+        "shippingPrice",
+        "totalPrice",
+        "isPaid",
+        "isDelivered",
+        "paymentMethod"
+      ]
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": ""
+        },
+        "name": {
+          "type": "string",
+          "example": "abderrahmen"
+        },
+        "email": {
+          "type": "string",
+          "example": "admin@example.comm"
+        },
+        "password": {
+          "type": "string",
+          "example": "123456"
+        },
+        "isAdmin": {
+          "type": "boolean",
+          "example": false
+        },
+        "token": {
+          "type": "string",
+          "example": "oiuytiotyu"
+        }
+      },
+      "required": [
+        "name",
+        "email",
+        "password",
+        "isAdmin"
+      ]
+    }
+  }
+}
