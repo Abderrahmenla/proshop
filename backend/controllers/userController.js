@@ -143,8 +143,8 @@ const deleteUser = asyncHandler(async (req, res) => {
 // @route   GET /api/users/:id
 // @access  Private/Admin
 const getUserById = asyncHandler(async (req, res) => {
-  // #swagger.tags = ['Orders']
-  // #swagger.description = 'Get all orders for the admin.'
+  // #swagger.tags = ['Users']
+  // #swagger.description = 'Get all Users for the admin.'
   const user = await User.findById(req.params.id).select('-password');
 
   if (user) {
@@ -159,8 +159,8 @@ const getUserById = asyncHandler(async (req, res) => {
 // @route   PUT /api/users/:id
 // @access  Private/Admin
 const updateUser = asyncHandler(async (req, res) => {
-  // #swagger.tags = ['Orders']
-  // #swagger.description = 'Get all orders for the admin.'
+  // #swagger.tags = ['Users']
+  // #swagger.description = 'Get all Users for the admin.'
   const user = await User.findById(req.params.id);
 
   if (user) {

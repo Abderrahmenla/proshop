@@ -40,7 +40,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
     const createdOrder = await order.save();
     /* #swagger.responses[201] = { 
                schema: { $ref: "#/definitions/Order" },
-               description: 'Usuário encontrado.' 
+               description: 'Order created.' 
         } */
     res.status(201).json(createdOrder);
   }

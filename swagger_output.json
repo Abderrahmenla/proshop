@@ -31,7 +31,7 @@
   ],
   "securityDefinitions": {
     "Bearer": {
-      "type": "http",
+      "type": "apiKey",
       "name": "Authorization",
       "in": "header"
     }
@@ -431,9 +431,9 @@
     "/api/users/{id}": {
       "get": {
         "tags": [
-          "Orders"
+          "Users"
         ],
-        "description": "Get all orders for the admin.",
+        "description": "Get all Users for the admin.",
         "parameters": [
           {
             "name": "id",
@@ -453,9 +453,9 @@
       },
       "put": {
         "tags": [
-          "Orders"
+          "Users"
         ],
-        "description": "Get all orders for the admin.",
+        "description": "Get all Users for the admin.",
         "parameters": [
           {
             "name": "id",
@@ -571,7 +571,7 @@
         ],
         "responses": {
           "201": {
-            "description": "Usuário encontrado.",
+            "description": "Order created.",
             "schema": {
               "$ref": "#/definitions/Order"
             }
