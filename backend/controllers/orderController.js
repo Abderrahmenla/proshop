@@ -6,7 +6,11 @@ import Order from '../models/orderModel.js';
 // @access  Private
 const addOrderItems = asyncHandler(async (req, res) => {
   // #swagger.tags = ['Orders']
-  // #swagger.description = 'Endpoint for placing an order.'
+  // #swagger.description = 'Place an order.'
+  /* #swagger.security = [{
+               "Bearer": []
+        }] */
+
   const {
     orderItems,
     shippingAddress,
@@ -34,7 +38,10 @@ const addOrderItems = asyncHandler(async (req, res) => {
     });
 
     const createdOrder = await order.save();
-
+    /* #swagger.responses[201] = { 
+               schema: { $ref: "#/definitions/Order" },
+               description: 'Usuário encontrado.' 
+        } */
     res.status(201).json(createdOrder);
   }
 });
@@ -43,12 +50,23 @@ const addOrderItems = asyncHandler(async (req, res) => {
 // @route   GET /api/orders/:id
 // @access  Private
 const getOrderById = asyncHandler(async (req, res) => {
+  // #swagger.tags = ['Orders']
+  // #swagger.description = 'Get specific order details for the client.'
+  // #swagger.parameters['id'] = { description: 'ID of the order.' }
+  /* #swagger.security = [{
+               "Bearer": []
+        }] */
+
   const order = await Order.findById(req.params.id).populate(
     'user',
     'name email'
   );
 
   if (order) {
+    /* #swagger.responses[200] = { 
+            schema: { $ref: "#/definitions/Order" },
+            description: 'Your order.' 
+        } */
     res.json(order);
   } else {
     res.status(404);
@@ -60,6 +78,13 @@ const getOrderById = asyncHandler(async (req, res) => {
 // @route   GET /api/orders/:id/pay
 // @access  Private
 const updateOrderToPaid = asyncHandler(async (req, res) => {
+  // #swagger.tags = ['Orders']
+  // #swagger.description = 'Update order to paid status.'
+  // #swagger.parameters['id'] = { description: 'ID of the order.' }
+  /* #swagger.security = [{
+               "Bearer": []
+        }] */
+
   const order = await Order.findById(req.params.id);
 
   if (order) {
@@ -73,7 +98,10 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
     };
 
     const updatedOrder = await order.save();
-
+    /* #swagger.responses[200] = { 
+               schema: { $ref: "#/definitions/Order" },
+               description: 'Order is paid.' 
+        } */
     res.json(updatedOrder);
   } else {
     res.status(404);
@@ -85,6 +113,13 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
 // @route   GET /api/orders/:id/deliver
 // @access  Private/Admin
 const updateOrderToDelivered = asyncHandler(async (req, res) => {
+  // #swagger.tags = ['Orders']
+  // #swagger.description = 'Update the order to deliver status.'
+  // #swagger.parameters['id'] = { description: 'ID of the order.' }
+  /* #swagger.security = [{
+               "Bearer": []
+        }] */
+
   const order = await Order.findById(req.params.id);
 
   if (order) {
@@ -92,7 +127,10 @@ const updateOrderToDelivered = asyncHandler(async (req, res) => {
     order.deliveredAt = Date.now();
 
     const updatedOrder = await order.save();
-
+    /* #swagger.responses[200] = { 
+               schema: { $ref: "#/definitions/Order" },
+               description: 'Order is delivered.' 
+        } */
     res.json(updatedOrder);
   } else {
     res.status(404);
@@ -104,6 +142,12 @@ const updateOrderToDelivered = asyncHandler(async (req, res) => {
 // @route   GET /api/orders/myorders
 // @access  Private
 const getMyOrders = asyncHandler(async (req, res) => {
+  // #swagger.tags = ['Orders']
+  // #swagger.description = 'Get logged in users orders'
+  /* #swagger.security = [{
+               "Bearer": []
+        }] */
+
   const orders = await Order.find({ user: req.user._id });
   res.json(orders);
 });
@@ -112,6 +156,12 @@ const getMyOrders = asyncHandler(async (req, res) => {
 // @route   GET /api/orders
 // @access  Private/Admin
 const getOrders = asyncHandler(async (req, res) => {
+  // #swagger.tags = ['Orders']
+  // #swagger.description = 'Get all orders for the admin.'
+  /* #swagger.security = [{
+          "Bearer": []
+        }] */
+
   const orders = await Order.find({}).populate('user', 'id name');
   res.json(orders);
 });

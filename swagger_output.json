@@ -31,7 +31,7 @@
   ],
   "securityDefinitions": {
     "Bearer": {
-      "type": "apiKey",
+      "type": "http",
       "name": "Authorization",
       "in": "header"
     }
@@ -61,84 +61,250 @@
     },
     "/api/products/": {
       "get": {
-        "tags": [],
-        "description": "",
-        "parameters": [],
+        "tags": [
+          "Products"
+        ],
+        "description": "Get all products.",
+        "parameters": [
+          {
+            "name": "page",
+            "description": "The number of the required page.",
+            "type": "string",
+            "in": "query"
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "type": "string"
+          }
+        ],
         "responses": {}
       },
       "post": {
-        "tags": [],
-        "description": "",
-        "parameters": [],
+        "tags": [
+          "Products"
+        ],
+        "description": "Get all Products for the admin.",
+        "parameters": [
+          {
+            "name": "newProduct",
+            "in": "body",
+            "description": "the product details.",
+            "required": true,
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        ],
         "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Order"
+            },
+            "description": "Created product."
+          },
+          "201": {
+            "description": "Created"
+          },
           "401": {
             "description": "Unauthorized"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/api/products/{id}/reviews": {
       "post": {
-        "tags": [],
-        "description": "",
-        "parameters": [],
-        "responses": {}
+        "tags": [
+          "Products"
+        ],
+        "description": "Create a Product review by a logged in client.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the product."
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "rating": {
+                  "example": "any"
+                },
+                "comment": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/api/products/top": {
       "get": {
-        "tags": [],
-        "description": "",
+        "tags": [
+          "Products"
+        ],
+        "description": "Get top Products.",
         "parameters": [],
         "responses": {}
       }
     },
     "/api/products/{id}": {
       "get": {
-        "tags": [],
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      },
-      "put": {
-        "tags": [],
-        "description": "",
+        "tags": [
+          "Products"
+        ],
+        "description": "Get a product by the id.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "ID of the product."
           }
         ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Order"
+            },
+            "description": "The product."
+          },
+          "404": {
+            "description": "Not Found"
           }
         }
       },
-      "delete": {
-        "tags": [],
-        "description": "",
+      "put": {
+        "tags": [
+          "Products"
+        ],
+        "description": "Update a Product by the admin.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "ID of the product."
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "any"
+                },
+                "price": {
+                  "example": "any"
+                },
+                "description": {
+                  "example": "any"
+                },
+                "image": {
+                  "example": "any"
+                },
+                "brand": {
+                  "example": "any"
+                },
+                "category": {
+                  "example": "any"
+                },
+                "countInStock": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Product"
+            },
+            "description": "Updated product."
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Products"
+        ],
+        "description": " Delete a product.Admin only.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the product."
           }
         ],
         "responses": {
           "401": {
             "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
           }
         }
       }
     },
     "/api/users/": {
       "get": {
-        "tags": [],
-        "description": "",
+        "tags": [
+          "Users"
+        ],
+        "description": "Get all Users for the admin.",
         "parameters": [],
         "responses": {
           "401": {
@@ -147,38 +313,127 @@
         }
       },
       "post": {
-        "tags": [],
-        "description": "",
-        "parameters": [],
-        "responses": {}
+        "tags": [
+          "Users"
+        ],
+        "description": "Get all Users for the admin.",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
       }
     },
     "/api/users/login": {
       "post": {
-        "tags": [],
-        "description": "",
-        "parameters": [],
-        "responses": {}
+        "tags": [
+          "Users"
+        ],
+        "description": "Get all Users for the admin.",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
       }
     },
     "/api/users/profile": {
       "get": {
-        "tags": [],
-        "description": "",
+        "tags": [
+          "Users"
+        ],
+        "description": "Get all Users for the admin.",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
       },
       "put": {
-        "tags": [],
-        "description": "",
-        "parameters": [],
-        "responses": {}
+        "tags": [
+          "Users"
+        ],
+        "description": "Get all Users for the admin.",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
       }
     },
     "/api/users/{id}": {
       "get": {
-        "tags": [],
-        "description": "",
+        "tags": [
+          "Orders"
+        ],
+        "description": "Get all orders for the admin.",
         "parameters": [
           {
             "name": "id",
@@ -190,29 +445,57 @@
         "responses": {
           "401": {
             "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
           }
         }
       },
       "put": {
-        "tags": [],
-        "description": "",
+        "tags": [
+          "Orders"
+        ],
+        "description": "Get all orders for the admin.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "isAdmin": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {
           "401": {
             "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
           }
         }
       },
       "delete": {
-        "tags": [],
-        "description": "",
+        "tags": [
+          "Users"
+        ],
+        "description": "Get all Users for the admin.",
         "parameters": [
           {
             "name": "id",
@@ -224,75 +507,243 @@
         "responses": {
           "401": {
             "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
           }
         }
       }
     },
     "/api/orders/": {
       "get": {
-        "tags": [],
-        "description": "",
+        "tags": [
+          "Orders"
+        ],
+        "description": "Get all orders for the admin.",
         "parameters": [],
         "responses": {
           "401": {
             "description": "Unauthorized"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       },
       "post": {
-        "tags": [],
-        "description": "",
-        "parameters": [],
-        "responses": {}
+        "tags": [
+          "Orders"
+        ],
+        "description": "Place an order.",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "orderItems": {
+                  "example": "any"
+                },
+                "shippingAddress": {
+                  "example": "any"
+                },
+                "paymentMethod": {
+                  "example": "any"
+                },
+                "itemsPrice": {
+                  "example": "any"
+                },
+                "taxPrice": {
+                  "example": "any"
+                },
+                "shippingPrice": {
+                  "example": "any"
+                },
+                "totalPrice": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Usuário encontrado.",
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/api/orders/myorders": {
       "get": {
-        "tags": [],
-        "description": "",
+        "tags": [
+          "Orders"
+        ],
+        "description": "Get logged in users orders",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/api/orders/{id}": {
       "get": {
-        "tags": [],
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/orders/{id}/pay": {
-      "put": {
-        "tags": [],
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/orders/{id}/deliver": {
-      "put": {
-        "tags": [],
-        "description": "",
+        "tags": [
+          "Orders"
+        ],
+        "description": "Get specific order details for the client.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "ID of the order."
           }
         ],
         "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Order"
+            },
+            "description": "Your order."
+          },
           "401": {
             "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/api/orders/{id}/pay": {
+      "put": {
+        "tags": [
+          "Orders"
+        ],
+        "description": "Update order to paid status.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the order."
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "example": "any"
+                },
+                "status": {
+                  "example": "any"
+                },
+                "update_time": {
+                  "example": "any"
+                },
+                "payer": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Order"
+            },
+            "description": "Order is paid."
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/api/orders/{id}/deliver": {
+      "put": {
+        "tags": [
+          "Orders"
+        ],
+        "description": "Update the order to deliver status.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the order."
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Order"
+            },
+            "description": "Order is delivered."
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/api/upload/": {
       "post": {
-        "tags": [],
-        "description": "",
+        "tags": [
+          "Uploads"
+        ],
+        "description": "Upload the image.",
         "parameters": [],
         "responses": {}
       }
@@ -461,6 +912,93 @@
         "email",
         "password",
         "isAdmin"
+      ]
+    },
+    "Product": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "type": "string",
+          "example": ""
+        },
+        "name": {
+          "type": "string",
+          "example": "Xiome X5"
+        },
+        "image": {
+          "type": "string",
+          "example": ""
+        },
+        "brand": {
+          "type": "string",
+          "example": "Sample brand"
+        },
+        "category": {
+          "type": "string",
+          "example": "Sample category"
+        },
+        "description": {
+          "type": "string",
+          "example": "Sample description"
+        },
+        "rating": {
+          "type": "number",
+          "example": 5
+        },
+        "numReviews": {
+          "type": "number",
+          "example": 1
+        },
+        "price": {
+          "type": "number",
+          "example": 200
+        },
+        "countInStock": {
+          "type": "number",
+          "example": 5
+        },
+        "reviews": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": ""
+              },
+              "rating": {
+                "type": "number",
+                "example": 0
+              },
+              "comment": {
+                "type": "string",
+                "example": ""
+              },
+              "user": {
+                "type": "string",
+                "example": ""
+              }
+            },
+            "required": [
+              "name",
+              "rating",
+              "comment",
+              "user"
+            ]
+          }
+        }
+      },
+      "required": [
+        "user",
+        "name",
+        "image",
+        "brand",
+        "category",
+        "description",
+        "rating",
+        "numReviews",
+        "price",
+        "countInStock"
       ]
     }
   }

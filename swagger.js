@@ -75,6 +75,26 @@ const doc = {
       $isAdmin: false,
       token: 'oiuytiotyu',
     },
+    Product: {
+      $user: '',
+      $name: 'Xiome X5',
+      $image: '',
+      $brand: 'Sample brand',
+      $category: 'Sample category',
+      $description: 'Sample description',
+      $rating: 5,
+      $numReviews: 1,
+      $price: 200,
+      $countInStock: 5,
+      reviews: [
+        {
+          $name: '',
+          $rating: 0,
+          $comment: '',
+          $user: '',
+        },
+      ],
+    },
   },
 };
 
