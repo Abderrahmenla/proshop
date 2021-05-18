@@ -1,6 +1,6 @@
 # ProShop eCommerce Platform
 
->  [Proshop](http://proshopapp96.herokuapp.com/api-docs/) is an eCommerce platform built with the MERN stack & Redux and swagger for the api documentation (visit proshopapp96.herokuapp.com/api-docs/).
+>  [Proshop](http://proshopapp96.herokuapp.com/api-docs/) is an eCommerce platform built with the MERN stack with Redux, swagger for the api documentation (visit proshopapp96.herokuapp.com/api-docs/).
 
 ![screenshot](https://github.com/bradtraversy/proshop_mern/blob/master/uploads/Screen%20Shot%202020-09-29%20at%205.50.52%20PM.png)
 
