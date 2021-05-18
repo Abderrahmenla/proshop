@@ -67,15 +67,10 @@
         "description": "Get all products.",
         "parameters": [
           {
-            "name": "page",
+            "name": "pageNumber",
             "description": "The number of the required page.",
             "type": "string",
             "in": "query"
-          },
-          {
-            "name": "pageNumber",
-            "in": "query",
-            "type": "string"
           },
           {
             "name": "keyword",
@@ -296,7 +291,12 @@
           "404": {
             "description": "Not Found"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/api/users/": {
@@ -304,19 +304,24 @@
         "tags": [
           "Users"
         ],
-        "description": "Get all Users for the admin.",
+        "description": "Get all users by the Admin .",
         "parameters": [],
         "responses": {
           "401": {
             "description": "Unauthorized"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       },
       "post": {
         "tags": [
           "Users"
         ],
-        "description": "Get all Users for the admin.",
+        "description": "Sign up.",
         "parameters": [
           {
             "name": "obj",
@@ -339,7 +344,10 @@
         ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "The user have been registered.",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
           },
           "400": {
             "description": "Bad Request"
@@ -352,7 +360,7 @@
         "tags": [
           "Users"
         ],
-        "description": "Get all Users for the admin.",
+        "description": "Authenticate user and get token.",
         "parameters": [
           {
             "name": "obj",
@@ -371,6 +379,12 @@
           }
         ],
         "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/User"
+            },
+            "description": "Signed in."
+          },
           "401": {
             "description": "Unauthorized"
           }
@@ -382,7 +396,7 @@
         "tags": [
           "Users"
         ],
-        "description": "Get all Users for the admin.",
+        "description": "Get client profile by logged client.",
         "parameters": [],
         "responses": {
           "401": {
@@ -391,13 +405,18 @@
           "404": {
             "description": "Not Found"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       },
       "put": {
         "tags": [
           "Users"
         ],
-        "description": "Get all Users for the admin.",
+        "description": "Update client profile by logged client.",
         "parameters": [
           {
             "name": "obj",
@@ -425,7 +444,12 @@
           "404": {
             "description": "Not Found"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/api/users/{id}": {
@@ -433,13 +457,14 @@
         "tags": [
           "Users"
         ],
-        "description": "Get all Users for the admin.",
+        "description": "Get user by ID,Admin only.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "ID of the user."
           }
         ],
         "responses": {
@@ -449,19 +474,25 @@
           "404": {
             "description": "Not Found"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       },
       "put": {
         "tags": [
           "Users"
         ],
-        "description": "Get all Users for the admin.",
+        "description": "Update a user by ID.Admin only.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "ID of the user."
           },
           {
             "name": "obj",
@@ -489,19 +520,25 @@
           "404": {
             "description": "Not Found"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       },
       "delete": {
         "tags": [
           "Users"
         ],
-        "description": "Get all Users for the admin.",
+        "description": "Delete a client by admin.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "ID of the user."
           }
         ],
         "responses": {
@@ -511,7 +548,12 @@
           "404": {
             "description": "Not Found"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/api/orders/": {

@@ -7,12 +7,16 @@ import User from '../models/userModel.js';
 // @access  Public
 const authUser = asyncHandler(async (req, res) => {
   // #swagger.tags = ['Users']
-  // #swagger.description = 'Get all Users for the admin.'
+  // #swagger.description = 'Authenticate user and get token.'
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
 
   if (user && (await user.matchPassword(password))) {
+    /* #swagger.responses[201] = { 
+            schema: { $ref: "#/definitions/User" },
+            description: 'Signed in.' 
+        } */
     res.json({
       _id: user._id,
       name: user.name,
@@ -31,7 +35,7 @@ const authUser = asyncHandler(async (req, res) => {
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
   // #swagger.tags = ['Users']
-  // #swagger.description = 'Get all Users for the admin.'
+  // #swagger.description = 'Sign up.'
   const { name, email, password } = req.body;
 
   const userExists = await User.findOne({ email });
@@ -48,6 +52,10 @@ const registerUser = asyncHandler(async (req, res) => {
   });
 
   if (user) {
+    /* #swagger.responses[201] = { 
+            schema: { $ref: "#/definitions/User" },
+            description: 'The user have been registered.' 
+        } */
     res.status(201).json({
       _id: user._id,
       name: user.name,
@@ -66,7 +74,10 @@ const registerUser = asyncHandler(async (req, res) => {
 // @access  Private
 const getUserProfile = asyncHandler(async (req, res) => {
   // #swagger.tags = ['Users']
-  // #swagger.description = 'Get all Users for the admin.'
+  // #swagger.description = 'Get client profile by logged client.'
+  /* #swagger.security = [{
+            "Bearer": []
+        }] */
   const user = await User.findById(req.user._id);
 
   if (user) {
@@ -87,7 +98,10 @@ const getUserProfile = asyncHandler(async (req, res) => {
 // @access  Private
 const updateUserProfile = asyncHandler(async (req, res) => {
   // #swagger.tags = ['Users']
-  // #swagger.description = 'Get all Users for the admin.'
+  // #swagger.description = 'Update client profile by logged client.'
+  /* #swagger.security = [{
+            "Bearer": []
+        }] */
   const user = await User.findById(req.user._id);
 
   if (user) {
@@ -117,7 +131,10 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 // @access  Private/Admin
 const getUsers = asyncHandler(async (req, res) => {
   // #swagger.tags = ['Users']
-  // #swagger.description = 'Get all Users for the admin.'
+  // #swagger.description = 'Get all users by the Admin .'
+  /* #swagger.security = [{
+            "Bearer": []
+        }] */
   const users = await User.find({});
   res.json(users);
 });
@@ -127,7 +144,11 @@ const getUsers = asyncHandler(async (req, res) => {
 // @access  Private/Admin
 const deleteUser = asyncHandler(async (req, res) => {
   // #swagger.tags = ['Users']
-  // #swagger.description = 'Get all Users for the admin.'
+  // #swagger.description = 'Delete a client by admin.'
+  // #swagger.parameters['id'] = { description: 'ID of the user.' }
+  /* #swagger.security = [{
+            "Bearer": []
+        }] */
   const user = await User.findById(req.params.id);
 
   if (user) {
@@ -144,7 +165,11 @@ const deleteUser = asyncHandler(async (req, res) => {
 // @access  Private/Admin
 const getUserById = asyncHandler(async (req, res) => {
   // #swagger.tags = ['Users']
-  // #swagger.description = 'Get all Users for the admin.'
+  // #swagger.description = 'Get user by ID,Admin only.'
+  // #swagger.parameters['id'] = { description: 'ID of the user.' }
+  /* #swagger.security = [{
+            "Bearer": []
+        }] */
   const user = await User.findById(req.params.id).select('-password');
 
   if (user) {
@@ -160,7 +185,11 @@ const getUserById = asyncHandler(async (req, res) => {
 // @access  Private/Admin
 const updateUser = asyncHandler(async (req, res) => {
   // #swagger.tags = ['Users']
-  // #swagger.description = 'Get all Users for the admin.'
+  // #swagger.description = 'Update a user by ID.Admin only.'
+  // #swagger.parameters['id'] = { description: 'ID of the user.' }
+  /* #swagger.security = [{
+            "Bearer": []
+        }] */
   const user = await User.findById(req.params.id);
 
   if (user) {

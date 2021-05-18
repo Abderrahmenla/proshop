@@ -8,13 +8,13 @@ const getProducts = asyncHandler(async (req, res) => {
   // #swagger.tags = ['Products']
   // #swagger.description = 'Get all products.'
   const pageSize = 10;
-  /* #swagger.parameters['page'] = {
+  /* #swagger.parameters['pageNumber'] = {
             description: 'The number of the required page.',
             type: 'string'
         } 
 */
 
-  const page = Number(req.query.pageNumber) || 1;
+  const pageNumber = Number(req.query.pageNumber) || 1;
 
   const keyword = req.query.keyword
     ? {
@@ -28,9 +28,9 @@ const getProducts = asyncHandler(async (req, res) => {
   const count = await Product.countDocuments({ ...keyword });
   const products = await Product.find({ ...keyword })
     .limit(pageSize)
-    .skip(pageSize * (page - 1));
+    .skip(pageSize * (pageNumber - 1));
 
-  res.json({ products, page, pages: Math.ceil(count / pageSize) });
+  res.json({ products, pageNumber, pages: Math.ceil(count / pageSize) });
 });
 
 // @desc    Fetch single product
@@ -61,6 +61,9 @@ const deleteProduct = asyncHandler(async (req, res) => {
   // #swagger.tags = ['Products']
   // #swagger.description = ' Delete a product.Admin only.'
   // #swagger.parameters['id'] = { description: 'ID of the product.' }
+  /* #swagger.security = [{
+               "Bearer": []
+        }] */
   const product = await Product.findById(req.params.id);
 
   if (product) {

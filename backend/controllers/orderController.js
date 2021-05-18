@@ -99,8 +99,8 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
 
     const updatedOrder = await order.save();
     /* #swagger.responses[200] = { 
-               schema: { $ref: "#/definitions/Order" },
-               description: 'Order is paid.' 
+              schema: { $ref: "#/definitions/Order" },
+              description: 'Order is paid.' 
         } */
     res.json(updatedOrder);
   } else {
