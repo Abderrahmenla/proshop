@@ -13,7 +13,7 @@ const authUser = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email });
 
   if (user && (await user.matchPassword(password))) {
-    /* #swagger.responses[201] = { 
+    /* #swagger.responses[200] = { 
             schema: { $ref: "#/definitions/User" },
             description: 'Signed in.' 
         } */
@@ -112,6 +112,10 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     }
 
     const updatedUser = await user.save();
+    /* #swagger.responses[200] = { 
+            schema: { $ref: "#/definitions/User" },
+            description: 'The profile have been updated.' 
+        } */
 
     res.json({
       _id: updatedUser._id,

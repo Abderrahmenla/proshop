@@ -379,7 +379,7 @@
           }
         ],
         "responses": {
-          "201": {
+          "200": {
             "schema": {
               "$ref": "#/definitions/User"
             },
